@@ -45,6 +45,7 @@ public class Transaction {
 	@JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID_CATEGORIA", nullable = false)
 	private Category category;
 
+	@ManyToOne
 	@JoinColumn(name = "ID_SUB_CATEGORIA", referencedColumnName = "ID_SUB_CATEGORIA", nullable = false)
 	private SubCategory subCategory;
 

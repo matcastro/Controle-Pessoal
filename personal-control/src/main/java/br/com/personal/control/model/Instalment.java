@@ -29,7 +29,7 @@ public class Instalment {
 	private BigDecimal valor;
 	
 	@ManyToOne
-	@JoinColumn(name="ID_TRANSACAO", referencedColumnName="ID_TRANSACAO")
+	@JoinColumn(name="ID_MOVIMENTACAO", referencedColumnName="ID_MOVIMENTACAO")
 	private Transaction transaction;
 
 	public Long getId() {
