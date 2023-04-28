@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Personal.Control.Configs;
+using Personal.Control.Repositories.Contexts;
+using System.Text.Json;
 
 namespace Personal.Control.Controllers
 {
@@ -7,6 +12,12 @@ namespace Personal.Control.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly ApplicationDbContext _dbContext;
+
+        public UsersController(IOptions<Config> options, ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         /// <summary>
         /// Retrive data from a registered user
         /// </summary>
@@ -79,6 +90,13 @@ namespace Personal.Control.Controllers
         public IActionResult Update(string id)
         {
             return Ok(id);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var emails = await this._dbContext.Users.Select(x => x.Email).ToListAsync();
+            return Ok(emails);
         }
     }
 }
