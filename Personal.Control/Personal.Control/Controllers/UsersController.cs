@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Personal.Control.Configs;
+using Personal.Control.Models.Requests;
 using Personal.Control.Repositories.Contexts;
-using System.Text.Json;
+using Personal.Control.Utils.Configs;
+using Personal.Control.Validators;
 
 namespace Personal.Control.Controllers
 {
@@ -37,9 +37,10 @@ namespace Personal.Control.Controllers
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
-        public IActionResult Register()
+        public IActionResult Register(UserRequest request)
         {
-            throw new NotImplementedException();
+            request.Validate();
+            return Ok();
         }
 
         /// <summary>

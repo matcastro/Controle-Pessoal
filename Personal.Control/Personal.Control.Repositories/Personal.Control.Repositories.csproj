@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Personal.Control.Configs\Personal.Control.Configs.csproj" />
+    <ProjectReference Include="..\Personal.Control.Configs\Personal.Control.Utils.csproj" />
   </ItemGroup>
 
 </Project>
