@@ -1,5 +1,6 @@
 ﻿using Personal.Control.Models.Enums;
 using Personal.Control.Models.Responses;
+using Personal.Control.Utils.Exceptions;
 using System.Net;
 
 namespace Personal.Control.Middlewares
@@ -37,6 +38,7 @@ namespace Personal.Control.Middlewares
             var (code, exceptionCode) = e switch
             {
                 ArgumentException or ArgumentOutOfRangeException => (HttpStatusCode.BadRequest, ExceptionCodesEnum.InvalidBody),
+                DuplicatedEntityException => (HttpStatusCode.BadRequest, ExceptionCodesEnum.AlreadyExists),
                 _ => (HttpStatusCode.InternalServerError, ExceptionCodesEnum.GenericError),
             };
 

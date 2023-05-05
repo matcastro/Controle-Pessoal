@@ -3,6 +3,7 @@
     public enum ExceptionCodesEnum
     {
         InvalidBody,
+        AlreadyExists,
         GenericError
     }
 }
