@@ -9,9 +9,9 @@ namespace Personal.Control.Repositories.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public User(string email, string password)
+        public User(string id, string email, string password)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = id;
             Email = email;
             Password = password;
         }

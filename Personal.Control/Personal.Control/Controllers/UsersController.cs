@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Personal.Control.Models.Requests;
-using Personal.Control.Repositories.Contexts;
-using Personal.Control.Utils.Configs;
+using Personal.Control.Models.Responses;
+using Personal.Control.Services.Models;
+using Personal.Control.Services.Services.Interfaces;
 using Personal.Control.Validators;
 
 namespace Personal.Control.Controllers
@@ -12,12 +12,15 @@ namespace Personal.Control.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public UsersController(IOptions<Config> options, ApplicationDbContext dbContext)
+        public UsersController(IMapper mapper, IUserService userService)
         {
-            _dbContext = dbContext;
+            _mapper = mapper;
+            _userService = userService;
         }
+
         /// <summary>
         /// Retrive data from a registered user
         /// </summary>
@@ -37,10 +40,13 @@ namespace Personal.Control.Controllers
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
-        public IActionResult Register(UserRequest request)
+        public async Task<IActionResult> Register(UserRequest request)
         {
             request.Validate();
-            return Ok();
+            var user = _mapper.Map<User>(request);
+            var registreredUser = await _userService.Register(user);
+            var response = _mapper.Map<UserResponse>(registreredUser);
+            return Ok(response);
         }
 
         /// <summary>
@@ -91,13 +97,6 @@ namespace Personal.Control.Controllers
         public IActionResult Update(string id)
         {
             return Ok(id);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> List()
-        {
-            var emails = await this._dbContext.Users.Select(x => x.Email).ToListAsync();
-            return Ok(emails);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class Config
     {
-        public ValidationConfig Validation { get; set; }
+        public ValidationConfig Validation { get; set; } = new();
     }
 }
