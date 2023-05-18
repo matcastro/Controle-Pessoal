@@ -1,5 +1,8 @@
 ﻿namespace Personal.Control.Utils.Exceptions
 {
+    /// <summary>
+    /// Exception to be used if an entity is already in the database and should not have repeated values
+    /// </summary>
     public class DuplicatedEntityException : Exception
     {
         public DuplicatedEntityException()
