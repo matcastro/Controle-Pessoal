@@ -4,6 +4,7 @@ using Personal.Control.Models.Requests;
 using Personal.Control.Models.Responses;
 using Personal.Control.Services.Models;
 using Personal.Control.Services.Services.Interfaces;
+using Personal.Control.Utils.Exceptions;
 using Personal.Control.Validators;
 
 namespace Personal.Control.Controllers
@@ -37,8 +38,11 @@ namespace Personal.Control.Controllers
         /// <summary>
         /// Register a user to use the system
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="request">A request to create an user</param>
+        /// <returns>Id of created user</returns>
+        /// <exception cref="ArgumentException">Any attribute of request with validation issues</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Password out of size range</exception>
+        /// <exception cref="DuplicatedEntityException">User already registered</exception>
         [HttpPut]
         public async Task<IActionResult> Register(UserRequest request)
         {

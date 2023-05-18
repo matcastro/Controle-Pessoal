@@ -9,6 +9,10 @@ namespace Personal.Control.Repositories.DI
 {
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Adds to program all services from the repositories layer
+        /// </summary>
+        /// <param name="services">Services to receive the dependency injections</param>
         public static void AddRepositories(this IServiceCollection services, IConfiguration configuration)
         {
             var databaseServer = Environment.GetEnvironmentVariable("MYSQL_DATABASE_SERVER");
