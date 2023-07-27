@@ -52,4 +52,4 @@ jobs:
           args:
             -Dsonar.projectKey=matcastro_Controle-Pessoal
             -Dsonar.organization=matcastro
-            -Dsonar.sources=Personal.Control
+            -Dsonar.sources=Personal.Control/
