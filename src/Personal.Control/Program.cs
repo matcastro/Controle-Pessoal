@@ -7,7 +7,7 @@ using Personal.Control.Utils.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = builder.Configuration.GetSection(nameof(Config)).Get<Config>()!;
+var configuration = builder.Configuration.GetSection(nameof(Config)).Get<Config>();
 ConfigurationHelper.Initialize(configuration);
 
 // Add services to the container.
