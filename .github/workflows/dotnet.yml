@@ -21,8 +21,8 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore "$GITHUB_WORKSPACE\Personal.Control\Personal.Control.sln" -s "https://api.nuget.org/v3/index.json"
+      run: dotnet restore "$GITHUB_WORKSPACE\Personal.Control.sln" -s "https://api.nuget.org/v3/index.json"
     - name: Build
-      run: dotnet build "$GITHUB_WORKSPACE\Personal.Control\Personal.Control.sln" -c "Release" --no-restore
-#    - name: Test
-#      run: dotnet test --no-build --verbosity normal
+      run: dotnet build "$GITHUB_WORKSPACE\Personal.Control.sln" -c "Release" --no-restore
+    - name: Test Personal.Control.Tests
+      run: dotnet test "$GITHUB_WORKSPACE\test\Personal.Control.Tests\bin\Release\net7.0\Personal.Control.Tests.dll" --no-build --verbosity normal
