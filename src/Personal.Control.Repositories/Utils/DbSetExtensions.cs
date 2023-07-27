@@ -16,7 +16,7 @@ namespace Personal.Control.Repositories.Utils
         /// <param name="predicate">Comparer function to check entity existence</param>
         /// <returns></returns>
         public static EntityEntry<T>? AddIfNotExists<T>(
-            this DbSet<T> dbSet, 
+            this DbSet<T> dbSet,
             T entity,
             out bool success,
             Expression<Func<T, bool>>? predicate = null) where T : class

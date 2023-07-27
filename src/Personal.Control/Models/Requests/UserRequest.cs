@@ -3,7 +3,7 @@
     public class UserRequest
     {
         private string _email = string.Empty;
-        
+
         /// <summary>
         /// Email of the user. Must be in a correct email format.
         /// </summary>

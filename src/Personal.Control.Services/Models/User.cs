@@ -15,16 +15,16 @@ namespace Personal.Control.Services.Models
         public string Email { get; set; } = string.Empty;
 
         private string _password = string.Empty;
-        
+
         /// <summary>
         /// User password, already encrypted.
         /// </summary>
-        public string Password 
+        public string Password
         {
             get
             {
                 return _password;
-            } 
+            }
             set
             {
                 _password = PasswordEncryptor.Encrypt(value, PasswordSalt);
@@ -32,7 +32,7 @@ namespace Personal.Control.Services.Models
         }
         public byte[] PasswordSalt { get; set; } = Array.Empty<byte>();
 
-        public User() 
+        public User()
         {
             Id = Guid.NewGuid().ToString();
         }

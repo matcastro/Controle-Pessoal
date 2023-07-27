@@ -7,7 +7,7 @@ namespace Personal.Control.Mappings
 {
     public class UserMapperConfig : Profile
     {
-        public UserMapperConfig() 
+        public UserMapperConfig()
         {
             CreateMap<UserRequest, Services.Models.User>()
                 .ForMember(dest => dest.PasswordSalt, opt => opt.MapFrom(_ => RandomNumberGenerator.GetBytes(64)));

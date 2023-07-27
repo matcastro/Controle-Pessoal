@@ -11,7 +11,7 @@ namespace Personal.Control.Middlewares
 
         public ExceptionHandlerMiddleware(RequestDelegate next)
         {
-            _next = next; 
+            _next = next;
         }
 
         public async Task Invoke(HttpContext context)
@@ -19,7 +19,7 @@ namespace Personal.Control.Middlewares
             try
             {
                 await _next(context);
-            } 
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.GetType().Name);
@@ -28,7 +28,7 @@ namespace Personal.Control.Middlewares
                 var response = context.Response;
 
                 var (status, message) = GetResponse(e);
-                response.StatusCode = (int) status;
+                response.StatusCode = (int)status;
                 await response.WriteAsJsonAsync(message);
             }
         }

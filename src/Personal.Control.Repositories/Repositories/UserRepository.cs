@@ -12,7 +12,8 @@ namespace Personal.Control.Repositories.Repositories
     {
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
 
-        public UserRepository(IDbContextFactory<ApplicationDbContext> dbContextFactory) {
+        public UserRepository(IDbContextFactory<ApplicationDbContext> dbContextFactory)
+        {
             this._dbContextFactory = dbContextFactory;
         }
 
