@@ -28,6 +28,9 @@ Before starting, make sure you have all the following download in your computer:
 * Framework:  [`.NET 7`](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-7) 
 * Language: [`C# 11.0`](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11)
 * Database: [`MySQL 8.0.33`](https://www.mysql.com/)
+> Before running the project remember to run the following commands to prepare your database structure:</br>
+> dotnet ef --startup-project ../Personal.Control/ migrations add InitialCreate</br>
+> dotnet ef --startup-project ../Personal.Control/ migrations remove
 
 ## 🚀 Installing Personal-Control
 
