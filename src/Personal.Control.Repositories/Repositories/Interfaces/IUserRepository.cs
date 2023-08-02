@@ -11,6 +11,6 @@ namespace Personal.Control.Repositories.Repositories.Interfaces
         /// <param name="user">User to be saved</param>
         /// <returns>A task with the execution of the saving process</returns>
         /// <exception cref="DuplicatedEntityException">User already registered</exception>
-        public Task Save(User user);
+        public Task SaveAsync(User user);
     }
 }

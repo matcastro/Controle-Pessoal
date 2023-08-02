@@ -30,9 +30,9 @@ namespace Personal.Control.Services.Tests.Services
         public async Task Register_WhenCalled_ShouldSavePasswordWithSaltAndPassword()
         {
             var user = _fixture.Create<User>();
-            await _userService.Register(user);
+            await _userService.RegisterAsync(user);
 
-            _userRepository.Verify(ur => ur.Save(It.Is<Repositories.Models.User>(
+            _userRepository.Verify(ur => ur.SaveAsync(It.Is<Repositories.Models.User>(
                 u => u.Password.Contains(Convert.ToBase64String(user.PasswordSalt)) &&
                 u.Password.Contains(user.Password))), Times.Once);
         }

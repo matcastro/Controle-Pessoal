@@ -11,6 +11,6 @@ namespace Personal.Control.Services.Services.Interfaces
         /// <param name="user">An user to be registered</param>
         /// <returns>A task with the same user with its id</returns>
         /// <exception cref="DuplicatedEntityException">Shows that an user has already been registered in the database</exception>
-        public Task<User> Register(User user);
+        public Task<User> RegisterAsync(User user);
     }
 }

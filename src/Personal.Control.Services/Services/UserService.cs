@@ -16,10 +16,10 @@ namespace Personal.Control.Services.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User> Register(User user)
+        public async Task<User> RegisterAsync(User user)
         {
             var userDb = _mapper.Map<Repositories.Models.User>(user);
-            await _userRepository.Save(userDb);
+            await _userRepository.SaveAsync(userDb);
             return user;
         }
     }

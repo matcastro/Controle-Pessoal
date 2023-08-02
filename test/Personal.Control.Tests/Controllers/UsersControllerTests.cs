@@ -83,7 +83,7 @@ namespace Personal.Control.Tests.Controllers
                .Create();
             var user = new User();
             var userResponse = new UserResponse { Id = user.Id };
-            _userServiceMock.Setup(us => us.Register(It.IsAny<User>())).ReturnsAsync(() => user);
+            _userServiceMock.Setup(us => us.RegisterAsync(It.IsAny<User>())).ReturnsAsync(() => user);
             _mapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(() => userResponse);
 
             var response = await _usersController.Register(request);

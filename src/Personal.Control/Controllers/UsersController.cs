@@ -48,7 +48,7 @@ namespace Personal.Control.Controllers
         {
             request.Validate();
             var user = _mapper.Map<User>(request);
-            var registeredUser = await _userService.Register(user);
+            var registeredUser = await _userService.RegisterAsync(user);
             var response = _mapper.Map<UserResponse>(registeredUser);
             return Ok(response);
         }

@@ -17,7 +17,7 @@ namespace Personal.Control.Repositories.Repositories
             this._dbContextFactory = dbContextFactory;
         }
 
-        public async Task Save(User user)
+        public async Task SaveAsync(User user)
         {
             using var context = await _dbContextFactory.CreateDbContextAsync();
             context.Users.AddIfNotExists(user, out var success, u => u.Email == user.Email);
