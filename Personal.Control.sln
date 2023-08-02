@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Personal.Control.Tests", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Control.Services.Tests", "test\Personal.Control.Services.Tests\Personal.Control.Services.Tests.csproj", "{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Control.Repositories.Tests", "test\Personal.Control.Repositories.Tests\Personal.Control.Repositories.Tests.csproj", "{DCA43B15-5122-48B2-834C-103652AC1498}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA43B15-5122-48B2-834C-103652AC1498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA43B15-5122-48B2-834C-103652AC1498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA43B15-5122-48B2-834C-103652AC1498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA43B15-5122-48B2-834C-103652AC1498}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{C111D692-7372-488C-9A4D-1706E4BE63A5} = {C69647FD-9CA9-4D2C-A8A1-EEAA7A515642}
 		{C43F632D-815B-4AD1-B384-35AB4766EDD1} = {47F46B58-AD0E-4E34-B146-B0104F883E8A}
 		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0} = {47F46B58-AD0E-4E34-B146-B0104F883E8A}
+		{DCA43B15-5122-48B2-834C-103652AC1498} = {47F46B58-AD0E-4E34-B146-B0104F883E8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7E0D913-EA82-4335-A8B8-D08D5F677C6F}
