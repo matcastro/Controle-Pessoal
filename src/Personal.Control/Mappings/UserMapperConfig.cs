@@ -12,7 +12,7 @@ namespace Personal.Control.Mappings
             CreateMap<UserRequest, Services.Models.User>()
                 .ForMember(dest => dest.PasswordSalt, opt => opt.MapFrom(_ => RandomNumberGenerator.GetBytes(64)));
             CreateMap<Services.Models.User, Repositories.Models.User>()
-                .ForMember(dest => dest.Password, opt => opt.MapFrom(modelUser => $"{modelUser.PasswordSalt}++{modelUser.Password}"));
+                .AfterMap((modelUser, dest) => dest.Password = $"{Convert.ToBase64String(modelUser.PasswordSalt)}++{modelUser.Password}");
             CreateMap<Services.Models.User, UserResponse>();
         }
     }

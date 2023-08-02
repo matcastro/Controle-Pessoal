@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C69647FD-9CA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{47F46B58-AD0E-4E34-B146-B0104F883E8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Control.Tests", "test\Personal.Control.Tests\Personal.Control.Tests.csproj", "{C43F632D-815B-4AD1-B384-35AB4766EDD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Personal.Control.Tests", "test\Personal.Control.Tests\Personal.Control.Tests.csproj", "{C43F632D-815B-4AD1-B384-35AB4766EDD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Control.Services.Tests", "test\Personal.Control.Services.Tests\Personal.Control.Services.Tests.csproj", "{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{C43F632D-815B-4AD1-B384-35AB4766EDD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C43F632D-815B-4AD1-B384-35AB4766EDD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C43F632D-815B-4AD1-B384-35AB4766EDD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{37E5270A-0FA2-4703-9B87-066C7416BB03} = {C69647FD-9CA9-4D2C-A8A1-EEAA7A515642}
 		{C111D692-7372-488C-9A4D-1706E4BE63A5} = {C69647FD-9CA9-4D2C-A8A1-EEAA7A515642}
 		{C43F632D-815B-4AD1-B384-35AB4766EDD1} = {47F46B58-AD0E-4E34-B146-B0104F883E8A}
+		{FDA9A9D0-6D0C-4A64-912C-9334E2C7FBC0} = {47F46B58-AD0E-4E34-B146-B0104F883E8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7E0D913-EA82-4335-A8B8-D08D5F677C6F}
