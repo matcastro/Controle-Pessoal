@@ -30,4 +30,4 @@ jobs:
           args:
             -Dsonar.projectKey=matcastro_Controle-Pessoal
             -Dsonar.organization=matcastro
-            -Dsonar.coverageReportPaths=coverage.xml
+            -Dsonar.cs.vscoveragexml.reportsPaths=coverage.xml
