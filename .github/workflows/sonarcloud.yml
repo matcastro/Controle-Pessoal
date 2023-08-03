@@ -19,6 +19,7 @@ jobs:
 
       - name: Setup .NET and Generate Coverage Report
         run: |
+            dotnet tool install --global dotnet-sonarscanner
             dotnet tool install --global dotnet-coverage
             dotnet sonarscanner begin /k:"matcastro_Controle-Pessoal"
                 /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
