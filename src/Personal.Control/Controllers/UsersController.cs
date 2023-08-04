@@ -100,7 +100,7 @@ namespace Personal.Control.Controllers
         [Route("{id}")]
         public IActionResult Update(string id)
         {
-            return Ok(id);
+            throw new NotImplementedException();
         }
     }
 }

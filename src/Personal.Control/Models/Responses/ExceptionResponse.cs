@@ -14,7 +14,7 @@ namespace Personal.Control.Models.Responses
         /// </summary>
         public string Message { get; }
 
-        public ExceptionResponse(ExceptionCodesEnum code, string message)
+        public ExceptionResponse(ExceptionCodes code, string message)
         {
             Code = code.ToString();
             Message = message;

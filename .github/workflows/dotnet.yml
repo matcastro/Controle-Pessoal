@@ -26,3 +26,7 @@ jobs:
       run: dotnet build "$GITHUB_WORKSPACE\Personal.Control.sln" -c "Release" --no-restore
     - name: Test Personal.Control.Tests
       run: dotnet test "$GITHUB_WORKSPACE/test/Personal.Control.Tests/bin/Release/net7.0/Personal.Control.Tests.dll" --no-build --verbosity normal
+    - name: Test Personal.Control.Services.Tests
+      run: dotnet test "$GITHUB_WORKSPACE/test/Personal.Control.Services.Tests/bin/Release/net7.0/Personal.Control.Services.Tests.dll" --no-build --verbosity normal
+    - name: Test Personal.Control.Repositories.Tests  
+      run: dotnet test "$GITHUB_WORKSPACE/test/Personal.Control.Repositories.Tests/bin/Release/net7.0/Personal.Control.Repositories.Tests.dll" --no-build --verbosity normal

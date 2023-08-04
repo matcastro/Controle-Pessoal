@@ -37,9 +37,9 @@ namespace Personal.Control.Middlewares
         {
             var (code, exceptionCode) = e switch
             {
-                ArgumentException or ArgumentOutOfRangeException => (HttpStatusCode.BadRequest, ExceptionCodesEnum.InvalidBody),
-                DuplicatedEntityException => (HttpStatusCode.BadRequest, ExceptionCodesEnum.AlreadyExists),
-                _ => (HttpStatusCode.InternalServerError, ExceptionCodesEnum.GenericError),
+                ArgumentException or ArgumentOutOfRangeException => (HttpStatusCode.BadRequest, ExceptionCodes.InvalidBody),
+                DuplicatedEntityException => (HttpStatusCode.BadRequest, ExceptionCodes.AlreadyExists),
+                _ => (HttpStatusCode.InternalServerError, ExceptionCodes.GenericError),
             };
 
             return (code, new ExceptionResponse(exceptionCode, e.Message));

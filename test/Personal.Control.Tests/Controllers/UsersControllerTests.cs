@@ -98,5 +98,39 @@ namespace Personal.Control.Tests.Controllers
             Assert.NotNull(userResponseResult);
             Assert.False(string.IsNullOrWhiteSpace(userResponseResult.Id));
         }
+
+        [Fact]
+        public void Get_WhenCalled_ShouldThrowNotImplementedException()
+        {
+            var id = _fixture.Create<string>();
+            Assert.Throws<NotImplementedException>(() => _usersController.Get(id));
+        }
+
+        [Fact]
+        public void ResetPassword_WhenCalled_ShouldThrowNotImplementedException()
+        {
+            Assert.Throws<NotImplementedException>(() => _usersController.ResetPassword());
+        }
+
+        [Fact]
+        public void Delete_WhenCalled_ShouldThrowNotImplementedException()
+        {
+            var id = _fixture.Create<string>();
+            Assert.Throws<NotImplementedException>(() => _usersController.Delete(id));
+        }
+
+        [Fact]
+        public void GetPermissions_WhenCalled_ShouldThrowNotImplementedException()
+        {
+            var id = _fixture.Create<string>();
+            Assert.Throws<NotImplementedException>(() => _usersController.GetPermissions(id));
+        }
+
+        [Fact]
+        public void Update_WhenCalled_ShouldThrowNotImplementedException()
+        {
+            var id = _fixture.Create<string>();
+            Assert.Throws<NotImplementedException>(() => _usersController.Update(id));
+        }
     }
 }
