@@ -17,17 +17,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup .NET and Generate Coverage Report
-        run: |
-            dotnet tool install --global dotnet-coverage
-            dotnet-coverage collect "dotnet test" -f xml -o "./coverage.xml"
-      - name: Analyze with SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+      - name: SonarScanner for .NET 7 with pull request decoration support
+        uses: highbyte/sonarscan-dotnet@v2.2.2
         with:
-          args:
-            -Dsonar.projectKey=matcastro_Controle-Pessoal
-            -Dsonar.organization=matcastro
-            -Dsonar.cs.vscoveragexml.reportsPaths=coverage.xml
+            # The key of the SonarQube project
+            sonarProjectKey: matcastro_Controle-Pessoal
+            # The name of the SonarQube project
+            sonarProjectName:  Controle-Pessoal
+            # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
+            sonarOrganization: matcastro
+
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
