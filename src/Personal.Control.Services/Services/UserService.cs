@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Personal.Control.Repositories.Repositories.Interfaces;
 using Personal.Control.Services.Services.Interfaces;
+using Personal.Control.Utils.Exceptions;
+using Personal.Control.Utils.Messages;
 using User = Personal.Control.Services.Models.User;
 
 namespace Personal.Control.Services.Services
@@ -14,6 +16,19 @@ namespace Personal.Control.Services.Services
         {
             _mapper = mapper;
             _userRepository = userRepository;
+        }
+
+        public async Task<User> GetAsync(string id)
+        {
+            var userDb = await _userRepository.GetAsync(id);
+            if (userDb == null)
+            {
+                throw new EntityNotFoundException(ServiceMessages.EntityNotFound, nameof(User), id);
+            }
+
+            var serviceUser = _mapper.Map<User>(userDb);
+
+            return serviceUser;
         }
 
         public async Task<User> RegisterAsync(User user)

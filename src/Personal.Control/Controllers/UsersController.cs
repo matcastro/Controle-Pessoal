@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Personal.Control.Models.Enums;
 using Personal.Control.Models.Requests;
 using Personal.Control.Models.Responses;
 using Personal.Control.Services.Models;
@@ -30,9 +31,18 @@ namespace Personal.Control.Controllers
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         [Route("{id}")]
-        public IActionResult Get(string id)
+        public async Task<IActionResult> Get(string id)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                var message = $"{nameof(id)} must be sent!";
+                return BadRequest(new ExceptionResponse(ExceptionCodes.MissingMandatoryField, message));
+            }
+
+            var serviceUser = await _userService.GetAsync(id);
+            var responseUser = _mapper.Map<UserResponse>(serviceUser);
+
+            return Ok(responseUser);
         }
 
         /// <summary>
