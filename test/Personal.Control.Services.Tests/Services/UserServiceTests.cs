@@ -6,6 +6,7 @@ using Personal.Control.Repositories.Repositories.Interfaces;
 using Personal.Control.Services.Models;
 using Personal.Control.Services.Services;
 using Personal.Control.Services.Services.Interfaces;
+using Personal.Control.Utils.Exceptions;
 using Xunit;
 
 namespace Personal.Control.Services.Tests.Services
@@ -27,7 +28,7 @@ namespace Personal.Control.Services.Tests.Services
         }
 
         [Fact]
-        public async Task Register_WhenCalled_ShouldSavePasswordWithSaltAndPassword()
+        public async Task RegisterAsync_WhenCalled_ShouldSavePasswordWithSaltAndPassword()
         {
             var user = _fixture.Create<User>();
             await _userService.RegisterAsync(user);
@@ -35,6 +36,25 @@ namespace Personal.Control.Services.Tests.Services
             _userRepository.Verify(ur => ur.SaveAsync(It.Is<Repositories.Models.User>(
                 u => u.Password.Contains(Convert.ToBase64String(user.PasswordSalt)) &&
                 u.Password.Contains(user.Password))), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetAsync_WhenNonExistingUser_ShouldThrowEntityNotFoundException()
+        {
+            var id = _fixture.Create<string>();
+            _userRepository.Setup(ur => ur.GetAsync(id)).ReturnsAsync(() => null);
+            await Assert.ThrowsAsync<EntityNotFoundException>(() => _userService.GetAsync(id));
+        }
+
+        [Fact]
+        public async Task GetAsync_WhenExistingUser_ShouldReturnUserMappedFromDatabase()
+        {
+            var userDb = _fixture.Create<Repositories.Models.User>();
+            _userRepository.Setup(ur => ur.GetAsync(userDb.Id)).ReturnsAsync(() => userDb);
+            var user = await _userService.GetAsync(userDb.Id);
+            Assert.Equal(user.Id, userDb.Id);
+            Assert.Equal(user.Email, userDb.Email);
+            Assert.Equal(user.Password, userDb.Password);
         }
     }
 }
