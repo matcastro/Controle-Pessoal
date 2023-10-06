@@ -26,7 +26,7 @@ namespace Personal.Control.Tests.Middlewares
 
             await _middleware.Invoke(ctx);
 
-            Assert.Equal((int) HttpStatusCode.BadRequest, ctx.Response.StatusCode);
+            Assert.Equal((int)HttpStatusCode.BadRequest, ctx.Response.StatusCode);
         }
 
         [Fact]

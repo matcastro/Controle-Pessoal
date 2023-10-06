@@ -8,7 +8,7 @@ namespace Personal.Control.Utils.Exceptions
     [Serializable]
     public class EntityNotFoundException : Exception
     {
-        public EntityNotFoundException(string message) 
+        public EntityNotFoundException(string message)
             : base(message) { }
 
         public EntityNotFoundException(string message, string entityName, string entityIdentifier)
