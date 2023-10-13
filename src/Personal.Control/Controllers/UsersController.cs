@@ -6,6 +6,7 @@ using Personal.Control.Models.Responses;
 using Personal.Control.Services.Models;
 using Personal.Control.Services.Services.Interfaces;
 using Personal.Control.Utils.Exceptions;
+using Personal.Control.Utils.Messages;
 using Personal.Control.Validators;
 
 namespace Personal.Control.Controllers
@@ -35,8 +36,7 @@ namespace Personal.Control.Controllers
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                var message = $"{nameof(id)} must be sent!";
-                return BadRequest(new ExceptionResponse(ExceptionCodes.MissingMandatoryField, message));
+                return BadRequest(new ExceptionResponse(ExceptionCodes.MissingMandatoryField, ValidationMessages.MissingId));
             }
 
             var serviceUser = await _userService.GetAsync(id);
