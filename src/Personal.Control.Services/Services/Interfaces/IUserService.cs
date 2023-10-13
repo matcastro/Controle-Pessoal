@@ -12,5 +12,13 @@ namespace Personal.Control.Services.Services.Interfaces
         /// <returns>A task with the same user with its id</returns>
         /// <exception cref="DuplicatedEntityException">Shows that an user has already been registered in the database</exception>
         public Task<User> RegisterAsync(User user);
+
+        /// <summary>
+        /// Method to retrieve user information
+        /// </summary>
+        /// <param name="id">The user identifier to be used to locate the user</param>
+        /// <returns>A task with the retrieved user</returns>
+        /// <exception cref="EntityNotFoundException">Shows that the searched user does not exist.</exception>
+        public Task<User> GetAsync(string id);
     }
 }

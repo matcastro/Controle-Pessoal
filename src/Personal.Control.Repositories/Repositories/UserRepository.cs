@@ -17,6 +17,12 @@ namespace Personal.Control.Repositories.Repositories
             this._dbContextFactory = dbContextFactory;
         }
 
+        public async Task<User?> GetAsync(string id)
+        {
+            using var context = await _dbContextFactory.CreateDbContextAsync();
+            return await context.Users.FindAsync(id);
+        }
+
         public async Task SaveAsync(User user)
         {
             using var context = await _dbContextFactory.CreateDbContextAsync();

@@ -26,7 +26,7 @@ namespace Personal.Control.Tests.Middlewares
 
             await _middleware.Invoke(ctx);
 
-            Assert.Equal((int) HttpStatusCode.BadRequest, ctx.Response.StatusCode);
+            Assert.Equal((int)HttpStatusCode.BadRequest, ctx.Response.StatusCode);
         }
 
         [Fact]
@@ -38,6 +38,17 @@ namespace Personal.Control.Tests.Middlewares
             await _middleware.Invoke(ctx);
 
             Assert.Equal((int)HttpStatusCode.BadRequest, ctx.Response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Invoke_WhenNextThrowsEntityNotFoundException_ShouldSetResponseCodeTo404()
+        {
+            var ctx = new DefaultHttpContext();
+            _requestDelegate.Setup(next => next(ctx)).ThrowsAsync(new EntityNotFoundException());
+
+            await _middleware.Invoke(ctx);
+
+            Assert.Equal((int)HttpStatusCode.NotFound, ctx.Response.StatusCode);
         }
 
         [Fact]

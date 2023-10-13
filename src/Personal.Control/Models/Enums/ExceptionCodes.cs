@@ -15,6 +15,16 @@
         /// <summary>
         /// Unmapped error
         /// </summary>
-        GenericError
+        GenericError,
+
+        /// <summary>
+        /// Field need by an operation is missing
+        /// </summary>
+        MissingMandatoryField,
+
+        /// <summary>
+        /// Entity was not found
+        /// </summary>
+        NotFound
     }
 }

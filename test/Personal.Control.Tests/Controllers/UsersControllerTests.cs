@@ -3,11 +3,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Personal.Control.Controllers;
+using Personal.Control.Mappings;
 using Personal.Control.Models.Requests;
 using Personal.Control.Models.Responses;
 using Personal.Control.Services.Models;
 using Personal.Control.Services.Services.Interfaces;
 using Personal.Control.Utils.Helpers;
+using System.Net;
 using Xunit;
 
 namespace Personal.Control.Tests.Controllers
@@ -19,14 +21,15 @@ namespace Personal.Control.Tests.Controllers
         private readonly Fixture _fixture;
         private readonly UsersController _usersController;
         private readonly Mock<IUserService> _userServiceMock;
-        private readonly Mock<IMapper> _mapper;
+        private readonly IMapper _mapper;
 
         public UsersControllerTests()
         {
             _fixture = new Fixture();
             _userServiceMock = new Mock<IUserService>();
-            _mapper = new Mock<IMapper>();
-            _usersController = new UsersController(_mapper.Object, _userServiceMock.Object);
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<UserMapperConfig>());
+            _mapper = new Mapper(mapperConfiguration);
+            _usersController = new UsersController(_mapper, _userServiceMock.Object);
 
             ConfigurationHelper.Initialize(new Utils.Configs.Config
             {
@@ -81,10 +84,8 @@ namespace Personal.Control.Tests.Controllers
                .With(user => user.Email, ValidEmail)
                .With(user => user.Password, ValidPassword)
                .Create();
-            var user = new User();
-            var userResponse = new UserResponse { Id = user.Id };
+            var user = _fixture.Create<User>();
             _userServiceMock.Setup(us => us.RegisterAsync(It.IsAny<User>())).ReturnsAsync(() => user);
-            _mapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(() => userResponse);
 
             var response = await _usersController.Register(request);
 
@@ -100,10 +101,46 @@ namespace Personal.Control.Tests.Controllers
         }
 
         [Fact]
-        public void Get_WhenCalled_ShouldThrowNotImplementedException()
+        public async Task Register_WhenRequestValid_ShouldCallServiceWithMappedPassword()
+        {
+            var request = _fixture
+               .Build<UserRequest>()
+               .With(user => user.Email, ValidEmail)
+               .With(user => user.Password, ValidPassword)
+               .Create();
+            var response = await _usersController.Register(request);
+
+            _userServiceMock.Verify(us => us.RegisterAsync(
+                It.Is<User>(u => u.Password != request.Password && u.PasswordSalt.Length == 64)), Times.Once);
+        }
+
+        [Fact]
+        public async Task Get_WhenIdNotFilled_ShouldReturnBadRequest()
+        {
+            string id = string.Empty;
+            var response = await _usersController.Get(id);
+            Assert.IsType<BadRequestObjectResult>(response);
+            Assert.Equal((int)HttpStatusCode.BadRequest, ((BadRequestObjectResult)response).StatusCode);
+        }
+
+        [Fact]
+        public async Task Get_WhenExistentId_ShouldReturnUserData()
         {
             var id = _fixture.Create<string>();
-            Assert.Throws<NotImplementedException>(() => _usersController.Get(id));
+
+            var user = _fixture.Build<User>()
+               .With(user => user.Id, id)
+               .Create();
+            _userServiceMock.Setup(us => us.GetAsync(id)).ReturnsAsync(() => user);
+
+            var response = await _usersController.Get(id);
+
+            Assert.IsType<OkObjectResult>(response);
+            Assert.IsType<UserResponse>((response as OkObjectResult)?.Value);
+
+            var responseBody = (response as OkObjectResult)?.Value as UserResponse;
+            Assert.Equal(id, responseBody?.Id);
+            Assert.Equal(user.Email, responseBody?.Email);
         }
 
         [Fact]

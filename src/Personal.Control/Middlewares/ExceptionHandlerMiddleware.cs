@@ -39,6 +39,7 @@ namespace Personal.Control.Middlewares
             {
                 ArgumentException or ArgumentOutOfRangeException => (HttpStatusCode.BadRequest, ExceptionCodes.InvalidBody),
                 DuplicatedEntityException => (HttpStatusCode.BadRequest, ExceptionCodes.AlreadyExists),
+                EntityNotFoundException => (HttpStatusCode.NotFound, ExceptionCodes.NotFound),
                 _ => (HttpStatusCode.InternalServerError, ExceptionCodes.GenericError),
             };
 

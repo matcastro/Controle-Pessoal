@@ -39,5 +39,24 @@ namespace Personal.Control.Repositories.Tests.Repositories
             user.Password += "a";
             await Assert.ThrowsAsync<DuplicatedEntityException>(() => _userRepository.SaveAsync(user));
         }
+
+        [Fact]
+        public async Task GetAsync_WhenExistingUser_ShouldReturnIt()
+        {
+            var user = _fixture.Create<User>();
+            await _userRepository.SaveAsync(user);
+            var returnedUser = await _userRepository.GetAsync(user.Id);
+            Assert.Equal(user.Email, returnedUser?.Email);
+            Assert.Equal(user.Id, returnedUser?.Id);
+            Assert.Equal(user.Password, returnedUser?.Password);
+        }
+
+        [Fact]
+        public async Task GetAsync_WhenNonExistingUser_ShouldReturnNull()
+        {
+            var id = _fixture.Create<string>();
+            var returnedUser = await _userRepository.GetAsync(id);
+            Assert.Null(returnedUser);
+        }
     }
 }
