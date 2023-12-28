@@ -164,10 +164,25 @@ namespace Personal.Control.Tests.Controllers
         }
 
         [Fact]
-        public void Update_WhenCalled_ShouldThrowNotImplementedException()
+        public async Task Update_WhenValidRequest_ShouldUpdateUserIgnoringPassword()
         {
             var id = _fixture.Create<string>();
-            Assert.Throws<NotImplementedException>(() => _usersController.Update(id));
+            var request = _fixture
+               .Build<UserRequest>()
+               .With(user => user.Email, ValidEmail)
+               .With(user => user.Password, ValidPassword)
+               .Create();
+            await _usersController.Update(id, request);
+            _userServiceMock.Verify(us => us.UpdateAsync(
+                It.Is<User>(u => u.Email == request.Email && string.IsNullOrWhiteSpace(u.Password))), Times.Once);
+        }
+
+        [Fact]
+        public void Update_WhenInvalidEmail_ShouldThrowArgumentException()
+        {
+            var id = _fixture.Create<string>();
+            var request = _fixture.Create<UserRequest>();
+            Assert.ThrowsAsync<ArgumentException>(() => _usersController.Update(id, request));
         }
     }
 }

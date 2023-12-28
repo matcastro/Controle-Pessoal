@@ -39,14 +39,6 @@ namespace Personal.Control.Services.Tests.Services
         }
 
         [Fact]
-        public async Task GetAsync_WhenNonExistingUser_ShouldThrowEntityNotFoundException()
-        {
-            var id = _fixture.Create<string>();
-            _userRepository.Setup(ur => ur.GetAsync(id)).ReturnsAsync(() => null);
-            await Assert.ThrowsAsync<EntityNotFoundException>(() => _userService.GetAsync(id));
-        }
-
-        [Fact]
         public async Task GetAsync_WhenExistingUser_ShouldReturnUserMappedFromDatabase()
         {
             var userDb = _fixture.Create<Repositories.Models.User>();
@@ -55,6 +47,14 @@ namespace Personal.Control.Services.Tests.Services
             Assert.Equal(user.Id, userDb.Id);
             Assert.Equal(user.Email, userDb.Email);
             Assert.Equal(user.Password, userDb.Password);
+        }
+
+        [Fact]
+        public async Task GetAsync_WhenCalled_ShouldUpdateOnDatabase()
+        {
+            var user = _fixture.Create<User>();
+            await _userService.UpdateAsync(user);
+            _userRepository.Verify(ur => ur.UpdateAsync(It.IsAny<Repositories.Models.User>()), Times.Once);
         }
     }
 }

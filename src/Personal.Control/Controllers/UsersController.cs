@@ -102,15 +102,23 @@ namespace Personal.Control.Controllers
         }
 
         /// <summary>
-        /// Update data of an user
+        /// Update data of an user. Won't update password.
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns></returns>
         [HttpPost]
         [Route("{id}")]
-        public IActionResult Update(string id)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UserRequest userRequest)
         {
-            throw new NotImplementedException();
+            userRequest.ValidateAllowNull();
+            var user = _mapper.Map<User>(userRequest);
+            user.Id = id;
+            user.Password = string.Empty;
+
+            var updatedUser = await _userService.UpdateAsync(user);
+            var response = _mapper.Map<UserResponse>(updatedUser);
+
+            return Ok(response);
         }
     }
 }

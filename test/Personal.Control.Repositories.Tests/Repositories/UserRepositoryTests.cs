@@ -52,11 +52,44 @@ namespace Personal.Control.Repositories.Tests.Repositories
         }
 
         [Fact]
-        public async Task GetAsync_WhenNonExistingUser_ShouldReturnNull()
+        public async Task GetAsync_WhenNonExistingUser_ShouldThrowEntityNotFoundException()
         {
             var id = _fixture.Create<string>();
-            var returnedUser = await _userRepository.GetAsync(id);
-            Assert.Null(returnedUser);
+            await Assert.ThrowsAsync<EntityNotFoundException>(() => _userRepository.GetAsync(id));
+        }
+
+        [Fact]
+        public async Task UpdateAsync_WhenEmailNotFilled_ShouldReturnSavedUser()
+        {
+            var user = _fixture
+                .Build<User>()
+                .With(user => user.Email, string.Empty)
+                .Create();
+            var savedUser = _fixture
+                .Build<User>()
+                .With(u => u.Id, user.Id)
+                .Create(); ;
+
+            await _userRepository.SaveAsync(savedUser);
+            var returnedUser = await _userRepository.UpdateAsync(user);
+
+            Assert.Equal(savedUser.Id, returnedUser.Id);
+            Assert.Equal(savedUser.Email, returnedUser.Email);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_WhenEmailFilled_ShouldUpdateIt()
+        {
+            var user = _fixture.Create<User>();
+            var savedUser = _fixture
+                .Build<User>()
+                .With(u => u.Id, user.Id)
+                .Create();
+
+            await _userRepository.SaveAsync(savedUser);
+            var returnedUser = await _userRepository.UpdateAsync(user);
+
+            Assert.Equal(user?.Email, returnedUser.Email);
         }
     }
 }

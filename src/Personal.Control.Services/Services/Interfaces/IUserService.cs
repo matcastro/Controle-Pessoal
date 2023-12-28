@@ -18,7 +18,13 @@ namespace Personal.Control.Services.Services.Interfaces
         /// </summary>
         /// <param name="id">The user identifier to be used to locate the user</param>
         /// <returns>A task with the retrieved user</returns>
-        /// <exception cref="EntityNotFoundException">Shows that the searched user does not exist.</exception>
         public Task<User> GetAsync(string id);
+
+        /// <summary>
+        /// Update user data
+        /// </summary>
+        /// <param name="user">User entity with fields to be updated. Fields null or empty won't be updated</param>
+        /// <returns>A task with the updated user</returns>
+        public Task<User> UpdateAsync(User user);
     }
 }

@@ -17,10 +17,13 @@ namespace Personal.Control.Repositories.Repositories
             this._dbContextFactory = dbContextFactory;
         }
 
-        public async Task<User?> GetAsync(string id)
+        public async Task<User> GetAsync(string id)
         {
             using var context = await _dbContextFactory.CreateDbContextAsync();
-            return await context.Users.FindAsync(id);
+            var user = await context.Users.FindAsync(id) ??
+                throw new EntityNotFoundException(ServiceMessages.EntityNotFound, nameof(User), id);
+
+            return user;
         }
 
         public async Task SaveAsync(User user)
@@ -30,6 +33,21 @@ namespace Personal.Control.Repositories.Repositories
             if (!success)
                 throw new DuplicatedEntityException(RepositoryMessages.UserAlreadyExists, user.Email);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<User> UpdateAsync(User user)
+        {
+            var savedUser = await this.GetAsync(user.Id);
+            if (string.IsNullOrWhiteSpace(user.Email))
+            {
+                return savedUser;
+            }
+
+            savedUser.Email = user.Email;
+            using var context = await _dbContextFactory.CreateDbContextAsync();
+            context.Update(savedUser);
+            await context.SaveChangesAsync();
+            return savedUser;
         }
     }
 }
