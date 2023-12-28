@@ -21,11 +21,6 @@ namespace Personal.Control.Services.Services
         public async Task<User> GetAsync(string id)
         {
             var userDb = await _userRepository.GetAsync(id);
-            if (userDb == null)
-            {
-                throw new EntityNotFoundException(ServiceMessages.EntityNotFound, nameof(User), id);
-            }
-
             var serviceUser = _mapper.Map<User>(userDb);
 
             return serviceUser;
@@ -36,6 +31,15 @@ namespace Personal.Control.Services.Services
             var userDb = _mapper.Map<Repositories.Models.User>(user);
             await _userRepository.SaveAsync(userDb);
             return user;
+        }
+
+        public async Task<User> UpdateAsync(User user)
+        {
+            var userDb = _mapper.Map<Repositories.Models.User>(user);
+            var updatedUserDb = await _userRepository.UpdateAsync(userDb);
+            
+            var serviceUser = _mapper.Map<User>(updatedUserDb);
+            return serviceUser;
         }
     }
 }

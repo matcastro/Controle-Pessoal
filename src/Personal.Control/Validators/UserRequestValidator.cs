@@ -16,13 +16,36 @@ namespace Personal.Control.Validators
         /// <exception cref="ArgumentOutOfRangeException">Password with less than minimum or more than maximum characters</exception>
         public static void Validate(this UserRequest request)
         {
-            Guard.Against.InvalidInput(request.Email, nameof(request.Email),
+            ValidateEmail(request.Email);
+            ValidatePassword(request.Password);
+        }
+
+        public static void ValidateAllowNull(this UserRequest request)
+        {
+            if (!string.IsNullOrWhiteSpace(request.Email))
+            {
+                ValidateEmail(request.Email);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                ValidatePassword(request.Password);
+            }
+        }
+
+        private static void ValidateEmail(string email)
+        {
+            Guard.Against.InvalidInput(email, nameof(email),
                 e => MailAddress.TryCreate(e, out _), ValidationMessages.InvalidEmail);
-            Guard.Against.OutOfRange(request.Password.Length, nameof(request.Password),
+        }
+
+        private static void ValidatePassword(string password)
+        {
+            Guard.Against.OutOfRange(password.Length, nameof(password),
                 ConfigurationHelper.Config.Validation.PasswordMinimumLength,
                 ConfigurationHelper.Config.Validation.PasswordMaximumLength,
                 ValidationMessages.PasswordOutOfRange);
-            Guard.Against.InvalidInput(request.Password, nameof(request.Password),
+            Guard.Against.InvalidInput(password, nameof(password),
                 p => p.Any(char.IsDigit) && p.Any(char.IsUpper) && p.Any(char.IsLower) &&
                 p.Any(c => "[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~]+".Contains(c)),
                 ValidationMessages.PasswordValidCharacters);

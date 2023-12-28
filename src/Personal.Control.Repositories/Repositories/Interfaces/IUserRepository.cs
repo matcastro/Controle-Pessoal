@@ -18,6 +18,14 @@ namespace Personal.Control.Repositories.Repositories.Interfaces
         /// </summary>
         /// <param name="id">User identifier</param>
         /// <returns>A task with the retrived user</returns>
-        public Task<User?> GetAsync(string id);
+        /// <exception cref="EntityNotFoundException">Thrown when user does not exists</exception>
+        public Task<User> GetAsync(string id);
+        
+        /// <summary>
+        /// Updates user data into the database
+        /// </summary>
+        /// <param name="user">User filled with desired data to be updated. Null/empty fields won't be considered.</param>
+        /// <returns></returns>
+        Task<User> UpdateAsync(User user);
     }
 }
