@@ -114,7 +114,7 @@ namespace Personal.Control.Controllers
             var user = _mapper.Map<User>(userRequest);
             user.Id = id;
             user.Password = string.Empty;
-            
+
             var updatedUser = await _userService.UpdateAsync(user);
             var response = _mapper.Map<UserResponse>(updatedUser);
 

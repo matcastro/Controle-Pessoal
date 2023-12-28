@@ -19,7 +19,7 @@ namespace Personal.Control.Services.Services.Interfaces
         /// <param name="id">The user identifier to be used to locate the user</param>
         /// <returns>A task with the retrieved user</returns>
         public Task<User> GetAsync(string id);
-        
+
         /// <summary>
         /// Update user data
         /// </summary>

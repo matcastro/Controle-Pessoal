@@ -37,7 +37,7 @@ namespace Personal.Control.Services.Services
         {
             var userDb = _mapper.Map<Repositories.Models.User>(user);
             var updatedUserDb = await _userRepository.UpdateAsync(userDb);
-            
+
             var serviceUser = _mapper.Map<User>(updatedUserDb);
             return serviceUser;
         }

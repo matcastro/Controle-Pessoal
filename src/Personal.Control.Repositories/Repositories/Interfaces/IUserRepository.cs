@@ -20,7 +20,7 @@ namespace Personal.Control.Repositories.Repositories.Interfaces
         /// <returns>A task with the retrived user</returns>
         /// <exception cref="EntityNotFoundException">Thrown when user does not exists</exception>
         public Task<User> GetAsync(string id);
-        
+
         /// <summary>
         /// Updates user data into the database
         /// </summary>

@@ -20,9 +20,9 @@ namespace Personal.Control.Repositories.Repositories
         public async Task<User> GetAsync(string id)
         {
             using var context = await _dbContextFactory.CreateDbContextAsync();
-            var user = await context.Users.FindAsync(id) ?? 
+            var user = await context.Users.FindAsync(id) ??
                 throw new EntityNotFoundException(ServiceMessages.EntityNotFound, nameof(User), id);
-            
+
             return user;
         }
 
@@ -42,7 +42,7 @@ namespace Personal.Control.Repositories.Repositories
             {
                 return savedUser;
             }
-            
+
             savedUser.Email = user.Email;
             using var context = await _dbContextFactory.CreateDbContextAsync();
             context.Update(savedUser);
