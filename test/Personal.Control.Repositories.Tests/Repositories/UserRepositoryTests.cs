@@ -107,7 +107,10 @@ namespace Personal.Control.Repositories.Tests.Repositories
         public async Task DeleteAsync_WhenIdDoesntExist_ShouldThrowNoException()
         {
             var id = _fixture.Create<string>();
+            var getTask = _userRepository.GetAsync(id);
             await _userRepository.DeleteAsync(id);
+
+            await Assert.ThrowsAsync<EntityNotFoundException>(() => getTask);
         }
     }
 }
