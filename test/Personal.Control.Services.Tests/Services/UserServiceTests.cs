@@ -56,5 +56,13 @@ namespace Personal.Control.Services.Tests.Services
             await _userService.UpdateAsync(user);
             _userRepository.Verify(ur => ur.UpdateAsync(It.IsAny<Repositories.Models.User>()), Times.Once);
         }
+
+        [Fact]
+        public async Task DeleteAsync_WhenCalled_ShouldDeleteOnDatabase()
+        {
+            var id = _fixture.Create<string>();
+            await _userService.DeleteAsync(id);
+            _userRepository.Verify(ur => ur.DeleteAsync(id), Times.Once);
+        }
     }
 }

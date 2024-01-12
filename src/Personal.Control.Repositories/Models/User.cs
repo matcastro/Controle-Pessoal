@@ -20,11 +20,23 @@ namespace Personal.Control.Repositories.Models
         /// </summary>
         public string Password { get; set; }
 
+        private User(string id)
+        {
+            Id = id;
+            Email = null!;
+            Password = null!;
+        }
+
         public User(string id, string email, string password)
         {
             Id = id;
             Email = email;
             Password = password;
+        }
+
+        internal static User CreateDeletableUser(string id)
+        {
+            return new User(id);
         }
     }
 }

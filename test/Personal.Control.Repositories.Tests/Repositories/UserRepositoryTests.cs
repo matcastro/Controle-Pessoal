@@ -91,5 +91,23 @@ namespace Personal.Control.Repositories.Tests.Repositories
 
             Assert.Equal(user?.Email, returnedUser.Email);
         }
+
+        [Fact]
+        public async Task DeleteAsync_WhenIdExists_ShouldDeleteIt()
+        {
+            var savedUser = _fixture.Create<User>();
+
+            await _userRepository.SaveAsync(savedUser);
+            await _userRepository.DeleteAsync(savedUser.Id);
+
+            await Assert.ThrowsAsync<EntityNotFoundException>(() => _userRepository.GetAsync(savedUser.Id));
+        }
+
+        [Fact]
+        public async Task DeleteAsync_WhenIdDoesntExist_ShouldThrowNoException()
+        {
+            var id = _fixture.Create<string>();
+            await _userRepository.DeleteAsync(id);
+        }
     }
 }

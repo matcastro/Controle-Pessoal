@@ -49,5 +49,21 @@ namespace Personal.Control.Repositories.Repositories
             await context.SaveChangesAsync();
             return savedUser;
         }
+
+        public async Task DeleteAsync(string id)
+        {
+            using var context = await _dbContextFactory.CreateDbContextAsync();
+            var user = User.CreateDeletableUser(id);
+            var deleteUser = context.Users.Attach(user);
+            deleteUser.State = EntityState.Deleted;
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                deleteUser.State = EntityState.Detached;
+            }
+        }
     }
 }
