@@ -20,16 +20,16 @@ namespace Personal.Control.Tests.Controllers
         private const string ValidPassword = "Aa1!Aa";
         private readonly Fixture _fixture;
         private readonly UsersController _usersController;
-        private readonly Mock<IUserService> _userServiceMock;
+        private readonly Mock<IUserService> _userService;
         private readonly IMapper _mapper;
 
         public UsersControllerTests()
         {
             _fixture = new Fixture();
-            _userServiceMock = new Mock<IUserService>();
+            _userService = new Mock<IUserService>();
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<UserMapperConfig>());
             _mapper = new Mapper(mapperConfiguration);
-            _usersController = new UsersController(_mapper, _userServiceMock.Object);
+            _usersController = new UsersController(_mapper, _userService.Object);
 
             ConfigurationHelper.Initialize(new Utils.Configs.Config
             {
@@ -85,7 +85,7 @@ namespace Personal.Control.Tests.Controllers
                .With(user => user.Password, ValidPassword)
                .Create();
             var user = _fixture.Create<User>();
-            _userServiceMock.Setup(us => us.RegisterAsync(It.IsAny<User>())).ReturnsAsync(() => user);
+            _userService.Setup(us => us.RegisterAsync(It.IsAny<User>())).ReturnsAsync(() => user);
 
             var response = await _usersController.Register(request);
 
@@ -110,7 +110,7 @@ namespace Personal.Control.Tests.Controllers
                .Create();
             var response = await _usersController.Register(request);
 
-            _userServiceMock.Verify(us => us.RegisterAsync(
+            _userService.Verify(us => us.RegisterAsync(
                 It.Is<User>(u => u.Password != request.Password && u.PasswordSalt.Length == 64)), Times.Once);
         }
 
@@ -131,7 +131,7 @@ namespace Personal.Control.Tests.Controllers
             var user = _fixture.Build<User>()
                .With(user => user.Id, id)
                .Create();
-            _userServiceMock.Setup(us => us.GetAsync(id)).ReturnsAsync(() => user);
+            _userService.Setup(us => us.GetAsync(id)).ReturnsAsync(() => user);
 
             var response = await _usersController.Get(id);
 
@@ -150,10 +150,13 @@ namespace Personal.Control.Tests.Controllers
         }
 
         [Fact]
-        public void Delete_WhenCalled_ShouldThrowNotImplementedException()
+        public async Task Delete_WhenCalled_ShouldReturn204()
         {
             var id = _fixture.Create<string>();
-            Assert.Throws<NotImplementedException>(() => _usersController.Delete(id));
+            var response = await _usersController.Delete(id);
+
+            _userService.Verify(us => us.DeleteAsync(id), Times.Once());
+            Assert.IsType<NoContentResult>(response);
         }
 
         [Fact]
@@ -173,7 +176,7 @@ namespace Personal.Control.Tests.Controllers
                .With(user => user.Password, ValidPassword)
                .Create();
             await _usersController.Update(id, request);
-            _userServiceMock.Verify(us => us.UpdateAsync(
+            _userService.Verify(us => us.UpdateAsync(
                 It.Is<User>(u => u.Email == request.Email && string.IsNullOrWhiteSpace(u.Password))), Times.Once);
         }
 

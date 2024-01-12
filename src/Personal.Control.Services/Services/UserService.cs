@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Personal.Control.Repositories.Repositories.Interfaces;
 using Personal.Control.Services.Services.Interfaces;
-using Personal.Control.Utils.Exceptions;
-using Personal.Control.Utils.Messages;
 using User = Personal.Control.Services.Models.User;
 
 namespace Personal.Control.Services.Services
@@ -40,6 +38,11 @@ namespace Personal.Control.Services.Services
 
             var serviceUser = _mapper.Map<User>(updatedUserDb);
             return serviceUser;
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            await _userRepository.DeleteAsync(id);
         }
     }
 }

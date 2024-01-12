@@ -26,6 +26,13 @@ namespace Personal.Control.Repositories.Repositories.Interfaces
         /// </summary>
         /// <param name="user">User filled with desired data to be updated. Null/empty fields won't be considered.</param>
         /// <returns></returns>
-        Task<User> UpdateAsync(User user);
+        public Task<User> UpdateAsync(User user);
+
+        /// <summary>
+        /// Deletes user data from database
+        /// </summary>
+        /// <param name="id">Id of the user to be deleted</param>
+        /// <returns></returns>
+        public Task DeleteAsync(string id);
     }
 }

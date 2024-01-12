@@ -80,12 +80,12 @@ namespace Personal.Control.Controllers
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            throw new NotImplementedException();
+            await _userService.DeleteAsync(id);
+            return NoContent();
         }
 
         /// <summary>

@@ -26,5 +26,12 @@ namespace Personal.Control.Services.Services.Interfaces
         /// <param name="user">User entity with fields to be updated. Fields null or empty won't be updated</param>
         /// <returns>A task with the updated user</returns>
         public Task<User> UpdateAsync(User user);
+
+        /// <summary>
+        /// Delete user data. If no user is already deleted, it will return the same response.
+        /// </summary>
+        /// <param name="id">Id of the user to be deleted</param>
+        /// <returns></returns>
+        public Task DeleteAsync(string id);
     }
 }
